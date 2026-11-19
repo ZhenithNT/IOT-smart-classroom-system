@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Mật khẩu và cấu hình riêng (không đưa lên GitHub)
+.env

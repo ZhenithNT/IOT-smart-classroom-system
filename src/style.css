@@ -1,23 +1,25 @@
-/* =========================================================
-   IOT SYSTEM STYLESHEET (CÂN ĐỐI, VỪA VẶN, CHUẨN TỶ LỆ PDF)
-   ========================================================= */
+/* ===================================================================
+   base
+   =================================================================== */
+/* CHUNG: màu sắc, bố cục tổng thể, thanh menu bên trái, tiêu đề trang */
 
 :root {
-  --primary: #00A86B;         /* Xanh lá đặc trưng chuẩn PDF */
-  --primary-hover: #00915C;
-  --bg-main: #F8F9FA;         /* Nền xám nhẹ toàn trang */
-  --bg-card: #FFFFFF;
-  --border-color: #E5E7EB;
-  --border-input: #D1D5DB;
+  --primary: #00a86b; /* Xanh lá đặc trưng chuẩn PDF */
+  --primary-hover: #00915c;
+  --bg-main: #f8f9fa; /* Nền xám nhẹ toàn trang */
+  --bg-card: #ffffff;
+  --border-color: #e5e7eb;
+  --border-input: #d1d5db;
   --text-main: #111827;
-  --text-muted: #6B7280;
-  --text-light: #9CA3AF;
+  --text-muted: #6b7280;
+  --text-light: #9ca3af;
 
-  --color-temp: #EF4444;      /* Đỏ - Nhiệt độ */
-  --color-humid: #3B82F6;     /* Xanh dương - Độ ẩm */
-  --color-light: #F59E0B;     /* Vàng cam - Ánh sáng */
+  --color-temp: #ef4444; /* Đỏ - Nhiệt độ */
+  --color-humid: #3b82f6; /* Xanh dương - Độ ẩm */
+  --color-light: #f59e0b; /* Vàng cam - Ánh sáng */
 
-  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-family:
+    "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
 
 * {
@@ -44,7 +46,7 @@ body {
 /* --- Sidebar bên trái --- */
 .sidebar {
   width: 230px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-right: 1px solid var(--border-color);
   padding: 20px 14px;
   display: flex;
@@ -86,7 +88,7 @@ body {
   border-radius: 8px;
   border: none;
   background: transparent;
-  color: #4B5563;
+  color: #4b5563;
   font-size: 14.5px;
   font-weight: 500;
   cursor: pointer;
@@ -100,19 +102,19 @@ body {
 }
 
 .menu-item:hover {
-  background-color: #F3F4F6;
+  background-color: #f3f4f6;
   color: #111827;
 }
 
 .menu-item.active {
   background-color: var(--primary);
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 600;
   box-shadow: 0 2px 6px rgba(0, 168, 107, 0.25);
 }
 
 .menu-item.active svg {
-  stroke: #FFFFFF;
+  stroke: #ffffff;
 }
 
 /* --- Vùng nội dung chính --- */
@@ -140,9 +142,17 @@ body {
   font-weight: 500;
 }
 
-/* =========================================================
-   1. DASHBOARD STYLES (VỪA VẶN, HÀI HÒA)
-   ========================================================= */
+
+/* Nút Đăng xuất nằm sát đáy thanh menu */
+.logout-button {
+  margin-top: auto;
+}
+
+
+/* ===================================================================
+   dashboard
+   =================================================================== */
+/* DASHBOARD: thẻ số đo, điều khiển thiết bị, công tắc, biểu đồ */
 .dashboard-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr) 1.25fr;
@@ -207,8 +217,8 @@ body {
   padding: 3px 9px;
   font-size: 11.5px;
   font-weight: 600;
-  color: #15803D;
-  background-color: #DCFCE7;
+  color: #15803d;
+  background-color: #dcfce7;
   border-radius: 9999px;
 }
 
@@ -258,29 +268,29 @@ body {
 
 /* Đèn BẬT - Sáng vàng rực rỡ và phát quang */
 .device-icon-box.bulb-on {
-  background-color: #FEF3C7;
-  border: 1.5px solid #FDE68A;
+  background-color: #fef3c7;
+  border: 1.5px solid #fde68a;
   box-shadow: 0 0 14px rgba(245, 158, 11, 0.45);
 }
 
 /* Đèn TẮT - Tối xám mờ */
 .device-icon-box.bulb-off {
-  background-color: #F3F4F6;
-  border: 1px solid #E5E7EB;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
   opacity: 0.65;
 }
 
 /* Quạt BẬT - Sáng xanh ngọc và quay */
 .device-icon-box.fan-on {
-  background-color: #ECFDF5;
-  border: 1.5px solid #A7F3D0;
+  background-color: #ecfdf5;
+  border: 1.5px solid #a7f3d0;
   box-shadow: 0 0 14px rgba(0, 168, 107, 0.4);
 }
 
 /* Quạt TẮT - Tối xám và đứng im */
 .device-icon-box.fan-off {
-  background-color: #F3F4F6;
-  border: 1px solid #E5E7EB;
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
   opacity: 0.65;
 }
 
@@ -324,7 +334,7 @@ body {
 
 /* Chữ trạng thái Đang xử lý... màu vàng cam nhấp nháy */
 .device-status.status-processing {
-  color: #D97706;
+  color: #d97706;
   font-weight: 600;
   animation: pulseProcessing 0.9s infinite alternate;
 }
@@ -369,7 +379,7 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #D1D5DB;
+  background-color: #d1d5db;
   transition: 0.25s;
 }
 
@@ -449,9 +459,47 @@ input:checked + .slider:before {
   position: relative;
 }
 
-/* =========================================================
-   2. BỘ LỌC ĐẸP & VỪA VẶN (SEARCH BAR, SELECT & BUTTONS)
-   ========================================================= */
+
+
+/* ===================================================================
+   alert
+   =================================================================== */
+/* TRANG CẢNH BÁO: mỗi hàng gồm 3 cột tương ứng 3 cảm biến */
+.alert-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.alert-chart {
+  height: 230px;
+}
+.alert-led.alert-led-on {
+  background-color: #fef2f2;
+  border: 1.5px solid #fecaca;
+  box-shadow: 0 0 14px rgba(239, 68, 68, 0.45);
+  animation: alertBlink 0.6s steps(1, end) infinite;
+}
+.alert-led.alert-led-off {
+  background-color: #f3f4f6;
+  border: 1px solid #e5e7eb;
+  opacity: 0.65;
+}
+@keyframes alertBlink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.2;
+    box-shadow: none;
+  }
+}
+
+
+/* ===================================================================
+   tables
+   =================================================================== */
+/* BỘ LỌC: ô tìm kiếm, ô chọn, nút bấm */
 .filter-bar {
   display: flex;
   align-items: center;
@@ -473,7 +521,7 @@ input:checked + .slider:before {
   left: 12px;
   width: 16px;
   height: 16px;
-  stroke: #9CA3AF;
+  stroke: #9ca3af;
   pointer-events: none;
 }
 
@@ -488,7 +536,7 @@ input:checked + .slider:before {
   font-size: 13.5px;
   border: 1.5px solid var(--border-input);
   border-radius: 8px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   color: #111827;
   outline: none;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
@@ -496,7 +544,7 @@ input:checked + .slider:before {
 }
 
 .filter-input::placeholder {
-  color: #9CA3AF;
+  color: #9ca3af;
   font-size: 13.5px;
 }
 
@@ -526,7 +574,7 @@ input:checked + .slider:before {
   font-weight: 500;
   border: 1.5px solid var(--border-input);
   border-radius: 8px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236B7280' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 10px center;
@@ -550,7 +598,7 @@ input:checked + .slider:before {
   padding: 0 20px;
   font-size: 13.5px;
   font-weight: 600;
-  color: #FFFFFF;
+  color: #ffffff;
   background-color: var(--primary);
   border: none;
   border-radius: 8px;
@@ -576,7 +624,7 @@ input:checked + .slider:before {
   font-size: 13.5px;
   font-weight: 500;
   color: #374151;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border: 1.5px solid var(--border-input);
   border-radius: 8px;
   cursor: pointer;
@@ -585,14 +633,12 @@ input:checked + .slider:before {
 }
 
 .btn-reset:hover {
-  background-color: #F9FAFB;
-  border-color: #9CA3AF;
+  background-color: #f9fafb;
+  border-color: #9ca3af;
   color: #111827;
 }
 
-/* =========================================================
-   3. BẢNG DỮ LIỆU & PHÂN TRANG (CÂN ĐỐI, DỄ ĐỌC)
-   ========================================================= */
+/* BẢNG DỮ LIỆU VÀ PHÂN TRANG */
 .table-card {
   background: var(--bg-card);
   border: 1px solid var(--border-color);
@@ -608,7 +654,7 @@ input:checked + .slider:before {
 }
 
 .data-table thead {
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -616,7 +662,7 @@ input:checked + .slider:before {
   padding: 13px 18px;
   font-size: 12.5px;
   font-weight: 600;
-  color: #4B5563;
+  color: #4b5563;
   text-transform: uppercase;
   letter-spacing: 0.3px;
 }
@@ -624,8 +670,8 @@ input:checked + .slider:before {
 .data-table td {
   padding: 13px 18px;
   font-size: 13.5px;
-  color: #1F2937;
-  border-bottom: 1px solid #F3F4F6;
+  color: #1f2937;
+  border-bottom: 1px solid #f3f4f6;
 }
 
 .data-table tbody tr:last-child td {
@@ -633,7 +679,7 @@ input:checked + .slider:before {
 }
 
 .data-table tbody tr:hover {
-  background-color: #F9FAFB;
+  background-color: #f9fafb;
 }
 
 .cell-id {
@@ -671,18 +717,18 @@ input:checked + .slider:before {
 }
 
 .status-success {
-  background-color: #DCFCE7;
-  color: #15803D;
+  background-color: #dcfce7;
+  color: #15803d;
 }
 
 .status-pending {
-  background-color: #FEF3C7;
-  color: #B45309;
+  background-color: #fef3c7;
+  color: #b45309;
 }
 
 .status-failed {
-  background-color: #FEE2E2;
-  color: #B91C1C;
+  background-color: #fee2e2;
+  color: #b91c1c;
 }
 
 /* Phân trang chân bảng */
@@ -692,12 +738,12 @@ input:checked + .slider:before {
   justify-content: space-between;
   padding: 13px 20px;
   border-top: 1px solid var(--border-color);
-  background-color: #FFFFFF;
+  background-color: #ffffff;
 }
 
 .pagination-info {
   font-size: 13.5px;
-  color: #4B5563;
+  color: #4b5563;
   font-weight: 500;
 }
 
@@ -716,8 +762,8 @@ input:checked + .slider:before {
   justify-content: center;
   font-size: 13px;
   font-weight: 600;
-  color: #4B5563;
-  background-color: #FFFFFF;
+  color: #4b5563;
+  background-color: #ffffff;
   border: 1.5px solid var(--border-color);
   border-radius: 6px;
   cursor: pointer;
@@ -725,15 +771,15 @@ input:checked + .slider:before {
 }
 
 .page-btn:hover:not(:disabled) {
-  background-color: #F3F4F6;
-  border-color: #D1D5DB;
+  background-color: #f3f4f6;
+  border-color: #d1d5db;
   color: #111827;
 }
 
 .page-btn.active {
   background-color: var(--primary);
   border-color: var(--primary);
-  color: #FFFFFF;
+  color: #ffffff;
   font-weight: 700;
   box-shadow: 0 1px 3px rgba(0, 168, 107, 0.25);
 }
@@ -756,7 +802,7 @@ input:checked + .slider:before {
   color: #374151;
   border: 1.5px solid var(--border-input);
   border-radius: 6px;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   cursor: pointer;
   outline: none;
 }
@@ -765,9 +811,35 @@ input:checked + .slider:before {
   border-color: var(--primary);
 }
 
-/* =========================================================
-   4. PROFILE STYLES
-   ========================================================= */
+
+/* Dòng thông báo trên bảng (đang tải / lỗi) */
+.table-message {
+  padding: 12px 0;
+  color: #6b7280;
+}
+
+.table-message.error {
+  color: #b91c1c;
+}
+
+/* Ô chọn cách sắp xếp */
+.sort-select {
+  min-width: 175px;
+}
+
+/* Lý do thất bại, hiện dưới nhãn "Thất bại" */
+.failure-detail {
+  display: block;
+  font-size: 11px;
+  color: #b91c1c;
+  margin-top: 3px;
+}
+
+
+/* ===================================================================
+   profile
+   =================================================================== */
+/* PROFILE: thông tin sinh viên và các thẻ liên kết */
 .profile-layout {
   display: grid;
   grid-template-columns: 310px 1fr;
@@ -798,7 +870,7 @@ input:checked + .slider:before {
 .student-card-title {
   font-size: 15px;
   font-weight: 700;
-  color: #6B7280;
+  color: #6b7280;
   margin-bottom: 12px;
   text-transform: uppercase;
   letter-spacing: 0.3px;
@@ -866,8 +938,8 @@ input:checked + .slider:before {
   padding: 0 16px;
   font-size: 13px;
   font-weight: 600;
-  color: #FFFFFF;
-  background-color: #2563EB;
+  color: #ffffff;
+  background-color: #2563eb;
   border: none;
   border-radius: 6px;
   cursor: pointer;
@@ -876,7 +948,7 @@ input:checked + .slider:before {
 }
 
 .btn-open-link:hover {
-  background-color: #1D4ED8;
+  background-color: #1d4ed8;
   transform: translateY(-1px);
 }
 
@@ -884,25 +956,96 @@ input:checked + .slider:before {
   transform: translateY(0);
 }
 
-/* =========================================================
-   RESPONSIVE DESIGN
-   ========================================================= */
-@media (max-width: 1200px) {
-  .dashboard-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
+
+
+/* ===================================================================
+   banner
+   =================================================================== */
+/* THANH THÔNG BÁO: trạng thái kết nối */
+.connection-banner {
+  padding: 9px 14px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 13px;
 }
 
-@media (max-width: 900px) {
-  .profile-layout {
-    grid-template-columns: 1fr;
-  }
-  .app-container {
-    flex-direction: column;
-  }
-  .sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-  }
+/* Xanh: ESP đang kết nối tốt */
+.connection-banner.online {
+  background: #ecfdf5;
+  color: #047857;
+}
+
+/* Cam: có vấn đề kết nối */
+.connection-banner.offline {
+  background: #fff7ed;
+  color: #9a3412;
+}
+
+
+/* ===================================================================
+   login
+   =================================================================== */
+/* MÀN HÌNH ĐĂNG NHẬP */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 360px;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 28px 26px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.login-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.login-title {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.login-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 6px;
+}
+
+.login-input {
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.login-error {
+  font-size: 13px;
+  color: #b91c1c;
+  background: #fef2f2;
+  border-radius: 6px;
+  padding: 8px 10px;
+  margin-bottom: 14px;
+}
+
+.login-button {
+  width: 100%;
+}
+
+.login-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
 }

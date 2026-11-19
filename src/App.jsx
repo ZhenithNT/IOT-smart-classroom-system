@@ -1,96 +1,90 @@
-import { useState, useEffect } from 'react'
-import Sidebar from './components/Sidebar'
-import Dashboard from './components/Dashboard'
-import DataSensor from './components/DataSensor'
-import HistoryAction from './components/HistoryAction'
-import Profile from './components/Profile'
+import React, { useState } from "react";
+import ReactDOM from "react-dom/client";
+import "./style.css";
 import {
-  INITIAL_DEVICES,
-  INITIAL_SENSOR_REALTIME,
-  INITIAL_CHART_POINTS,
-  MOCK_SENSOR_DATA,
-  MOCK_ACTION_HISTORY,
-} from './mockData'
+  IconLogo,
+  IconDashboard,
+  IconSensor,
+  IconAlert,
+  IconHistory,
+  IconProfile,
+  IconLogout,
+} from "./common";
+import { getToken } from "./api";
+import Login, { logout } from "./pages/auth";
+import Dashboard from "./pages/dashboard";
+import SensorTable from "./pages/sensorTable";
+import Alert from "./pages/alerts";
+import HistoryTable from "./pages/historyTable";
+import Profile from "./pages/profile";
 
-// Giờ hiện tại, ví dụ "08:30:00"
-const getTime = () => new Date().toLocaleTimeString('en-GB')
-// Ngày giờ hiện tại, ví dụ "15/08/2026 08:30:00"
-const getDateTime = () => new Date().toLocaleDateString('en-GB') + ' ' + getTime()
+// Thanh menu bên trái. Muốn thêm trang: thêm 1 dòng vào MENU và 1 dòng {tab === "..." && ...}
+const MENU = [
+  { id: "dashboard", label: "Dashboard", Icon: IconDashboard },
+  { id: "sensor", label: "Data Sensor", Icon: IconSensor },
+  { id: "alert", label: "Cảnh báo", Icon: IconAlert },
+  { id: "history", label: "History Action", Icon: IconHistory },
+  { id: "profile", label: "Profile", Icon: IconProfile },
+];
 
-export default function App() {
-  // ----- CÁC BIẾN "TRẠNG THÁI" (khi đổi giá trị, React tự vẽ lại màn hình) -----
-  const [tab, setTab] = useState('dashboard')                    // đang ở trang nào
-  const [devices, setDevices] = useState(INITIAL_DEVICES)         // đèn, quạt
-  const [pending, setPending] = useState({})                      // thiết bị nào đang chờ phản hồi, vd { 1: true }
-  const [sensor, setSensor] = useState(INITIAL_SENSOR_REALTIME)   // 3 số cảm biến hiện tại
-  const [chartPoints, setChartPoints] = useState(INITIAL_CHART_POINTS) // các điểm trên biểu đồ
-  const [history, setHistory] = useState(MOCK_ACTION_HISTORY)     // lịch sử bật/tắt
+// Chưa có token → màn hình Login; có token → màn hình chính
+function App() {
+  const [loggedIn, setLoggedIn] = useState(Boolean(getToken()));
 
-  // ----- MỖI 2 GIÂY TẠO DỮ LIỆU CẢM BIẾN GIẢ -----
-  useEffect(() => {
-    const timer = setInterval(() => {
-      const light = 950 + Math.floor(Math.random() * 150)
-      const temp = 27 + Math.floor(Math.random() * 4)
-      const humid = 76 + Math.floor(Math.random() * 9)
+  if (!loggedIn) return <Login onLogin={() => setLoggedIn(true)} />;
+  return <MainScreen />;
+}
 
-      setSensor({ light, temp, humid })
+function MainScreen() {
+  const [tab, setTab] = useState("dashboard");   // đang xem trang nào
 
-      // Thêm điểm mới vào cuối, chỉ giữ 8 điểm gần nhất
-      setChartPoints((old) => [...old, { time: getTime(), light, temp, humid }].slice(-8))
-    }, 2000)
-
-    return () => clearInterval(timer) // dừng timer khi thoát
-  }, [])
-
-  // ----- BẬT / TẮT THIẾT BỊ (giả lập gửi lệnh, chờ 1.2 giây rồi thành công) -----
-  function toggleDevice(id) {
-    if (pending[id]) return // đang chờ rồi thì không cho bấm tiếp
-
-    const device = devices.find((d) => d.id === id)
-    const recordId = history.length + 1
-
-    // 1. Đánh dấu thiết bị đang xử lý
-    setPending((old) => ({ ...old, [id]: true }))
-
-    // 2. Thêm 1 dòng "Đang xử lý" vào đầu bảng lịch sử
-    const newRecord = {
-      id: recordId,
-      device: device.name,
-      action: device.status ? 'Tắt' : 'Bật',
-      status: 'Đang xử lý',
-      respTime: 'Đang chờ',
-    }
-    setHistory((old) => [newRecord, ...old])
-
-    // 3. Sau 1.2 giây: đổi trạng thái thiết bị, sửa dòng lịch sử, mở khóa công tắc
-    setTimeout(() => {
-      setDevices((old) => old.map((d) => (d.id === id ? { ...d, status: !d.status } : d)))
-      setHistory((old) =>
-        old.map((r) => (r.id === recordId ? { ...r, status: 'Thành công', respTime: getDateTime() } : r))
-      )
-      setPending((old) => ({ ...old, [id]: false }))
-    }, 1200)
-  }
-
-  // ----- HIỂN THỊ TRANG THEO TAB -----
   return (
     <div className="app-container">
       <Sidebar currentTab={tab} setTab={setTab} />
 
       <main className="main-content">
-        {tab === 'dashboard' && (
-          <Dashboard
-            sensor={sensor}
-            chartPoints={chartPoints}
-            devices={devices}
-            pending={pending}
-            toggleDevice={toggleDevice}
-          />
-        )}
-        {tab === 'sensor' && <DataSensor sensorDataList={MOCK_SENSOR_DATA} />}
-        {tab === 'history' && <HistoryAction actionHistoryList={history} />}
-        {tab === 'profile' && <Profile />}
+        {tab === "dashboard" && <Dashboard />}
+        {tab === "sensor" && <SensorTable />}
+        {tab === "alert" && <Alert />}
+        {tab === "history" && <HistoryTable />}
+        {tab === "profile" && <Profile />}
       </main>
     </div>
-  )
+  );
 }
+
+function Sidebar({ currentTab, setTab }) {
+  return (
+    <aside className="sidebar">
+      <div className="sidebar-logo">
+        <IconLogo />
+        <span className="logo-text">IOT System</span>
+      </div>
+
+      <nav className="sidebar-menu">
+        {MENU.map(({ id, label, Icon }) => (
+          <button
+            key={id}
+            className={"menu-item " + (currentTab === id ? "active" : "")}
+            onClick={() => setTab(id)}
+          >
+            <Icon />
+            <span>{label}</span>
+          </button>
+        ))}
+      </nav>
+
+      <button className="menu-item logout-button" onClick={logout}>
+        <IconLogout />
+        <span>Đăng xuất</span>
+      </button>
+    </aside>
+  );
+}
+
+// Vẽ web vào thẻ <div id="root"> trong index.html
+ReactDOM.createRoot(document.getElementById("root")).render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+);
